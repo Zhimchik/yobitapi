@@ -78,7 +78,7 @@ class YobitTradeApi
     /**
      * @throws ApiDDosException|ApiDisabledException|ApiBadResponseException
      */
-    protected function cloudFlareChallenge(array $post): ?array
+    protected function cloudFlareChallenge(array $post): array
     {
         if (!function_exists('shell_exec')) {
             throw new ApiDDosException();
@@ -154,7 +154,7 @@ class YobitTradeApi
     /**
      * @throws ApiDDosException|ApiDisabledException|ApiBadResponseException|InvalidNonceException
      */
-    public function getResponse(string $method, array $post = [], ?bool $retry = false): array
+    public function getResponse(string $method, array $post = [], bool $retry = false): array
     {
         if (!$retry) {
             $post['method'] = $method;
@@ -190,7 +190,7 @@ class YobitTradeApi
     /**
      * @throws ApiDisabledException|ApiDDosException|ApiBadResponseException|InvalidNonceException
      */
-    public function handleResponse(?ResponseInterface $response): ?array
+    public function handleResponse(ResponseInterface $response): array
     {
         if ($response === null) {
             throw new ApiDisabledException();
