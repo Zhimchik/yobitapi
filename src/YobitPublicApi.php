@@ -60,7 +60,7 @@ class YobitPublicApi
     /**
      * @throws ApiDDosException|ApiDisabledException
      */
-    protected function cloudFlareChallenge(string $url): ?array
+    protected function cloudFlareChallenge(string $url): array
     {
         if (!function_exists('shell_exec')) {
             throw new ApiDDosException();
@@ -71,6 +71,7 @@ class YobitPublicApi
             __DIR__ . '/cloudflare-challenge.js ' .
             ((string) $this->client->getConfig('base_uri')) . $url
         );
+
         if ($result === null) {
             throw new ApiDDosException();
         }
@@ -94,7 +95,7 @@ class YobitPublicApi
     /**
      * @throws ApiDisabledException|ApiDDosException
      */
-    public function sendResponse(string $url, bool $afterCloudFlare = false): ?array
+    public function sendResponse(string $url, bool $afterCloudFlare = false): array
     {
         try {
             $response = $this->client->get($url, [
@@ -120,7 +121,7 @@ class YobitPublicApi
     /**
      * @throws ApiDisabledException|ApiDDosException
      */
-    public function handleResponse(?ResponseInterface $response): ?array
+    public function handleResponse(ResponseInterface $response): array
     {
         if ($response === null) {
             throw new ApiDisabledException();
@@ -144,7 +145,7 @@ class YobitPublicApi
      *
      * @throws ApiDisabledException|ApiDDosException
      */
-    public function getInfo(): ?array
+    public function getInfo()
     {
         return $this->sendResponse('info');
     }
